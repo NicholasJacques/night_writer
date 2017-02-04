@@ -3,7 +3,7 @@ class ReadWrite
     attr_reader :text_input
     attr_accessor :text_out
 
-    def initialize(filename = ARGV[0], savefilename = ARGV[1], text_input = '', @text_out = '')
+    def initialize(filename = ARGV[0], savefilename = ARGV[1], text_input = '', text_out = '')
         @filename = filename
         @savefilename = savefilename
         @text_input = text_input
