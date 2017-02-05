@@ -1,15 +1,15 @@
 class Parser
 
-  def initialize
+  def initialize(input)
+    @input = input
   end
 
   def input_message
-    @text_input
+    @input
   end
 
   def split_message
     input_message.chars
-
     # characters = []
     # characters << message.split(//)
   end
@@ -19,6 +19,7 @@ class Parser
     split_message.each do |character|
       braille_conversions << translations[character]
     end
+    braille_conversions
     #characters.each do |character|
       #braille_array << translations[character]
     #end
