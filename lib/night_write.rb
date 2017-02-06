@@ -23,5 +23,6 @@ class ReadWrite
 
 end
 
-
-
+new_file = ReadWrite.new
+new_file.text_out = new_file.file_open
+new_file.file_write
