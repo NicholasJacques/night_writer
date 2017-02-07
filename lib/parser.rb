@@ -1,26 +1,38 @@
 message = "This message will be translated to braille."
+require 'pry-state'
+require './lib/translator.rb'
 
 class Parser
-  def initialize
+  attr_reader :text_input
+  attr_accessor :text_out
 
+  def initialize(filename = ARGV[0], savefilename = ARGV[1], text_input = '', text_out = '')
+      @filename = filename
+      @savefilename = savefilename
+      @text_input = text_input
+      @text_out = ''
   end
 
-
-  def input_message
-    message = @text_input
+  def file_open
+      @text_input = File.open(@filename).read
+      @text_input
   end
 
-
-  def split_message
-    characters = []
-    characters << message.split(//)
+  def file_write(text_to_write = @text_out)
+      braille = File.open(@savefilename, 'w')
+      braille.write(text_to_write)
+      puts "Created '#{@savefilename}' containing #{text_to_write.length} characters"
   end
 
-  def convert_letters
+  def split_message_english
+    file_open.split(//) 
+  end
+
+  def convert_letters_to_braille
     braille_conversions = []
-    characters.each do |character|
+    split_message_english.each do |character|
       
-      braille_array << value
+      
     end
     # 
     # this method converts each letter to its braille equivalent
