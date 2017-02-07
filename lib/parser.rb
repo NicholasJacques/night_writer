@@ -52,7 +52,7 @@ class Parser
         second  << letter[1]
         third   << letter[2]
     end
-    first.join, second.join, third.join)
+    #first.join, second.join, third.join
   end
 
   def english_to_braille
