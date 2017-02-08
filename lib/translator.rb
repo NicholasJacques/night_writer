@@ -15,6 +15,12 @@ class Translator
         @braille_characters
     end
 
+    def braille_to_english_translator
+        @braille_characters.map do |braille|
+            alphabet_hash.key(braille)
+        end
+    end
+
     def alphabet_hash
         {"a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
         "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
@@ -26,4 +32,6 @@ class Translator
         "," => ["..","0.",".."], "-" => ["..","..","00"], "." => ["..","00",".0"], "?" => ["..","0.","00"],
         "capital" => ["..", "..", ".0"], "number" => [".0", ".0", "00"], " " => ["..","..",".."]}
     end
+    
+    
 end
