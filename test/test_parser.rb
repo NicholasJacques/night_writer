@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-#require './lib/night_write'
+require './lib/night_write'
 require 'minitest/pride'
 require './lib/parser'
 class NightWriteTest < Minitest::Test
