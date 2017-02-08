@@ -1,28 +1,14 @@
-class ReadWrite
+require './lib/parser'
+require './lib/translator'
 
-    attr_reader :text_input
-    attr_accessor :text_out
-
-    def initialize(filename = ARGV[0], savefilename = ARGV[1], text_input = '', text_out = '')
+class NightWrite
+    attr_reader
+    def initialize(filename = ARGV[0], savename =ARGV[1])
         @filename = filename
-        @savefilename = savefilename
-        @text_input = text_input
-        @text_out = ''
+        @savename = savename
     end
 
-    def file_open
-        @text_input = File.open(@filename).read
-        @text_input
+    def english_to_braille
+        
     end
-
-    def file_write(text_to_write = @text_out)
-        braille = File.open(@savefilename, 'w')
-        braille.write(text_to_write)
-        puts "Created '#{@savefilename}' containing #{text_to_write.length} characters"
-    end
-
 end
-
-new_file = ReadWrite.new
-new_file.text_out = new_file.file_open
-new_file.file_write

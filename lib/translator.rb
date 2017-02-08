@@ -3,16 +3,16 @@ require './lib/parser'
 
 class Translator
     attr_accessor :english_characters, :braille_characters
-    def intialize(english_characters = [], braille_characters = [])
+    def initialize(english_characters = [], braille_characters = [])
         @english_characters = english_characters
         @braille_characters = braille_characters
     end
 
-    def english_to_braille
-        english_characters.each do |character|
-            braille_characters << alphabet_hash[character]
+    def english_to_braille_translator
+        @english_characters.each do |character|
+            @braille_characters << alphabet_hash[character]
         end
-
+        @braille_characters
     end
 
     def alphabet_hash
