@@ -100,7 +100,7 @@ class Parser
   end
 
   def add_lines(first, second, third)
-    @text_out += first[0..39].join("") + "\n" + second[0..39].join("") + "\n" + third[0..39].join("") + "\n" + "\n"
+    @text_out += first[0..39].join("") + "\n" + second[0..39].join("") + "\n" + third[0..39].join("") + "\n" 
   end
 
   def format_braille_lines(first, second, third)
