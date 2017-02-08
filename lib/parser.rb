@@ -22,50 +22,101 @@ class Parser
   def file_write(text_to_write = @text_out)
       braille = File.open(@savefilename, 'w')
       braille.write(text_to_write)
-      puts "Created '#{@savefilename}' containing #{text_to_write.length} characters"
+      puts "Created '#{@savefilename}' containing #{@text_input.length} characters"
   end
 
   def split_message_english
     file_open.split(//) 
+  end
 
+  def find_caps_and_nums
+    counter = 0
+    array_of_parsed_english = split_message_english
+
+    while counter < array_of_parsed_english.length
+      if array_of_parsed_english[counter] == array_of_parsed_english[counter].upcase and array_of_parsed_english[counter]  =~ /[A-Za-z]/ #checks to see if capital
+        array_of_parsed_english.insert(counter , "capital")
+        counter += 2
+      elsif array_of_parsed_english[counter] =~ /\A\d+\z/ #if character is a number
+        array_of_parsed_english.insert(counter, "number")
+        counter += 1
+        array_of_parsed_english[counter] = convert_number(array_of_parsed_english[counter])
+        counter += 1
+      else
+        counter += 1
+      end
+    end
+    array_of_parsed_english.each {|thing| thing.downcase!}
+    array_of_parsed_english 
   end
 
   def convert_letters_to_braille
-    braille_conversions = []
+    english_to_braille = Translator.new(find_caps_and_nums)
+    english_to_braille.english_to_braille_translator
+  end
 
-    split_message_english.each do |character|
-      
-      
-
+  def convert_number(number)
+    letter_equivalent = ""
+    number = number.to_i
+    if number == 1
+      letter_equivalent = "a"
+    elsif number == 2
+      letter_equivalent = "b"
+    elsif number == 3
+      letter_equivalent = "c"
+    elsif number == 4
+      letter_equivalent = "d"
+    elsif number == 5
+      letter_equivalent = "e"
+    elsif number == 6
+      letter_equivalent = "f"
+    elsif number == 7
+      letter_equivalent = "g"
+    elsif number == 8
+      letter_equivalent = "h"
+    elsif number == 9
+      letter_equivalent = "i"
+    elsif number == 0
+      letter_equivalent = "j"
     end
-    braille_conversions
-    #characters.each do |character|
-      #braille_array << translations[character]
-    #end
+    letter_equivalent
   end
 
   def format_braille
     first, second, third   = [], [], []
 
-    braille_conversions.each do |letter|
+    convert_letters_to_braille.each do |letter|
         first   << letter[0]
         second  << letter[1]
         third   << letter[2]
     end
-    #first.join, second.join, third.join
+    
+    if first.length > 40
+      format_braille_lines(first, second, third)
+    else
+      add_lines(first, second, third)
+    end
+    @text_out
   end
 
-  def english_to_braille
-    translations = {"a" => ["0.","..",".."], "b" => ["0.","0.",".."], "c" => ["00","..",".."], "d" => ["00",".0",".."],
-     "e" => ["0.",".0",".."], "f" => ["00","0.",".."], "g" => ["00","00",".."], "h" => ["0.","00",".."],
-     "i" => [".0","0.",".."], "j" => [".0","00",".."], "k" => ["0.","..","0."], "l" => ["0.","0.","0."],
-     "m" => ["00","..","0."], "n" => ["0.",".0","0."], "o" => ["0.",".0","0."], "p" => ["00","0.","0."],
-     "r" => ["0.","00","0."], "s" => [".0","0.","0."], "t" => [".0","00","0."], "u" => ["0.","..","00"],
-     "v" => ["0.","0.","00"], "w" => [".0","00",".0"], "x" => ["00","..","00"], "y" => ["00",".0","00"],
-     "z" => ["0.",".0","00"], "!" => ["..","00","0."], "'" => ["..","..","0."], "," => ["..","0.",".."],
-     "-" => ["..","..","00"], "." => ["..","00",".0"], "?" => ["..","0.","00"], "capitals" => ["..", "..", ".0"],
-     "numbers" => [".0", ".0", "00"], " " => ["..","..",".."]}
+  def add_lines(first, second, third)
+    @text_out += first[0..39].join("") + "\n" + second[0..39].join("") + "\n" + third[0..39].join("") + "\n" + "\n"
   end
 
+  def format_braille_lines(first, second, third)
+    add_lines(first, second, third)
+    top = first[40..-1]
+    middle = second[40..-1]
+    bottom = third[40..-1]
+    
+    if top.length > 40
+      format_braille_lines(top, middle, bottom)
+    else
+      add_lines(top, middle, bottom)
+    end
+  end
+    
+
+  
 end
 
