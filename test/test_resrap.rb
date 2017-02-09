@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/resrap'
-require 'pry-state'
 
 class NightReadTest < Minitest::Test
 

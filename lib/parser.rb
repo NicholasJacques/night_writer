@@ -1,5 +1,3 @@
-
-message = "This message will be translated to braille."
 require './lib/translator.rb'
 
 class Parser
@@ -114,8 +112,5 @@ class Parser
       add_lines(top, middle, bottom)
     end
   end
-    
 
-  
 end
-
