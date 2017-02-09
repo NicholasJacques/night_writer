@@ -1,6 +1,5 @@
 
 message = "This message will be translated to braille."
-require 'pry-state'
 require './lib/translator.rb'
 
 class Parser
