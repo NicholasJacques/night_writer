@@ -1,4 +1,3 @@
-require 'pry-state'
 require './lib/translator'
 class Resrap
 
